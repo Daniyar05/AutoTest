@@ -25,9 +25,9 @@ namespace TestProject1
                 "2qyc9@deltajohnsons.com"
             );
 
-            OpenHomePage();
-            OpenLoginForm();
-            Login(user);
+            applicationManager.Navigation.OpenHomePage();
+            applicationManager.Navigation.OpenLoginForm();
+            applicationManager.Auth.Login(user);
 
         }
     }
