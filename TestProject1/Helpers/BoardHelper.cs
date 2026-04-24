@@ -58,7 +58,6 @@ namespace TestProject1
 
         public void OpenFirstBoard()
         {
-            // простой цикл ожидания вместо WebDriverWait
             for (int i = 0; i < 5; i++)
             {
                 if (GetBoards().Count > 0)
