@@ -14,7 +14,6 @@ using NUnit.Framework;
 
 namespace TestProject1
 {
-
     public class TestBase
     {
         protected ApplicationManager applicationManager;
@@ -22,13 +21,8 @@ namespace TestProject1
         [SetUp]
         public void SetupTest()
         {
-            applicationManager = new ApplicationManager();
-        }
-
-        [TearDown]
-        public void TeardownTest()
-        {
-            applicationManager.Stop();
+            applicationManager = ApplicationManager.GetInstance();
+            applicationManager.ResetSession();
         }
     }
 }

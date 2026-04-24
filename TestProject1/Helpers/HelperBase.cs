@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using OpenQA.Selenium;
+﻿using OpenQA.Selenium;
 
 namespace TestProject1
 {
@@ -29,17 +26,12 @@ namespace TestProject1
             }
         }
 
-        protected bool IsAlertPresent()
+        protected void Type(By by, string text)
         {
-            try
-            {
-                driver.SwitchTo().Alert();
-                return true;
-            }
-            catch (NoAlertPresentException)
-            {
-                return false;
-            }
+            IWebElement element = driver.FindElement(by);
+            element.Click();
+            element.Clear();
+            element.SendKeys(text);
         }
     }
 }
