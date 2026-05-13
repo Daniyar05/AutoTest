@@ -1,3 +1,6 @@
 <Solution>
+  <Project Path="BoardDataGenerator/BoardDataGenerator.csproj" Id="2a8cf497-19a3-41ae-a8b4-666fd318ab06">
+    <BuildType Project="Release" />
+  </Project>
   <Project Path="TestProject1/TestProject1.csproj" />
 </Solution>

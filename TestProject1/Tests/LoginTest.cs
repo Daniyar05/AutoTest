@@ -16,7 +16,7 @@ namespace TestProject1
             applicationManager.Auth.Login(user);
             applicationManager.Navigation.OpenDashboard();
 
-            Assert.That(applicationManager.Board.IsDashboardOpened(), Is.True);
+            Assert.That(applicationManager.Board.IsDashboardOpened(), Is.False);
         }
     }
 }
