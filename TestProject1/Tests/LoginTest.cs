@@ -3,20 +3,28 @@
 namespace TestProject1
 {
     [TestFixture]
-    public class LoginTest : TestBase
+    public class LoginTests : TestBase
     {
         [Test]
-        public void Login()
+        public void LoginWithValidData()
         {
-            AccountData user = new AccountData(
-                "2qyc9@deltajohnsons.com",
-                "2qyc9@deltajohnsons.com"
-            );
+            applicationManager.Auth.Logout();
 
+            AccountData user = new AccountData(Settings.Login, Settings.Password);
             applicationManager.Auth.Login(user);
-            applicationManager.Navigation.OpenDashboard();
 
-            Assert.That(applicationManager.Board.IsDashboardOpened(), Is.False);
+            Assert.That(applicationManager.Auth.IsLoggedIn(), Is.True);
+        }
+
+        [Test]
+        public void LoginWithInvalidData()
+        {
+            applicationManager.Auth.Logout();
+
+            AccountData user = new AccountData("wrong_login", "wrong_password");
+            applicationManager.Auth.Login(user);
+
+            Assert.That(applicationManager.Auth.IsLoggedIn(), Is.False);
         }
     }
 }

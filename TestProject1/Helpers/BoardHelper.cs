@@ -15,13 +15,14 @@ namespace TestProject1
 
         public void Create(BoardData board)
         {
-            Thread.Sleep(1000);
+            Thread.Sleep(2000);
 
-            IWebElement title = driver.FindElement(By.Id("id_title"));
-            title.Clear();
-            title.SendKeys(board.Title);
+            driver.FindElement(By.Id("id_title")).Click();
+            driver.FindElement(By.Id("id_title")).SendKeys(board.Title);
 
             driver.FindElement(By.Id("create")).Click();
+
+            Thread.Sleep(3000);
         }
 
         public bool IsCreateFormOpened()
@@ -103,6 +104,23 @@ namespace TestProject1
 
             Thread.Sleep(1000);
             driver.FindElement(By.Name("action")).Click();
+        }
+
+        public void OpenBoardByTitle(string title)
+        {
+            var boards = driver.FindElements(
+                By.CssSelector("#list .whiteboard, .whiteboard-list .whiteboard")
+            );
+
+            foreach (var board in boards)
+            {
+                if (board.Text.Contains(title))
+                {
+                    board.Click();
+                    Thread.Sleep(2000);
+                    break;
+                }
+            }
         }
     }
 }

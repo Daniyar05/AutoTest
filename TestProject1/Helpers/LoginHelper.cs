@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using System.Threading;
+using OpenQA.Selenium;
 
 namespace TestProject1
 {
@@ -11,17 +12,52 @@ namespace TestProject1
 
         public void Login(AccountData user)
         {
-            manager.Navigation.OpenLoginForm();
-            Type(By.Id("email"), user.Email);
-            Type(By.Id("id_password"), user.Password);
+            if (IsLoggedIn())
+            {
+                if (IsLoggedIn(user.Email))
+                {
+                    return;
+                }
+
+                Logout();
+            }
+
+            driver.Navigate().GoToUrl(Settings.BaseURL);
+            Thread.Sleep(2000);
+
+            driver.FindElement(By.CssSelector(".sign-in")).Click();
+            Thread.Sleep(2000);
+
+            driver.FindElement(By.Id("email")).Clear();
+            driver.FindElement(By.Id("email")).SendKeys(user.Email);
+
+            driver.FindElement(By.Id("id_password")).Clear();
+            driver.FindElement(By.Id("id_password")).SendKeys(user.Password);
+
             driver.FindElement(By.Id("sign-in-button")).Click();
+
+            Thread.Sleep(3000);
+        }
+
+        public void Logout()
+        {
+            driver.Navigate().GoToUrl(Settings.BaseURL + "logout/");
+            Thread.Sleep(2000);
+
+            driver.Navigate().GoToUrl(Settings.BaseURL);
+            Thread.Sleep(2000);
         }
 
         public bool IsLoggedIn()
         {
-            return IsElementPresent(By.CssSelector(".ff.ff-menu")) ||
+            return IsElementPresent(By.Id("icon-logo")) ||
                    IsElementPresent(By.Id("board-list")) ||
-                   IsElementPresent(By.Id("list"));
+                   IsElementPresent(By.Id("id_title"));
+        }
+
+        public bool IsLoggedIn(string username)
+        {
+            return IsLoggedIn();
         }
     }
 }

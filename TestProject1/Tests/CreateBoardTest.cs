@@ -6,7 +6,7 @@ using System.Xml.Serialization;
 namespace TestProject1
 {
     [TestFixture]
-    public class CreateBoardTest : TestBase
+    public class CreateBoardTest : AuthBase
     {
         public static IEnumerable<BoardData> BoardDataFromXmlFile()
         {
@@ -14,20 +14,11 @@ namespace TestProject1
                 .Deserialize(new StreamReader(@"boards.xml"));
         }
 
-        [Test, TestCaseSource("BoardDataFromXmlFile")]
+        [Test, TestCaseSource(nameof(BoardDataFromXmlFile))]
         public void AddBoardTest(BoardData board)
         {
-            AccountData user = new AccountData(
-                "2qyc9@deltajohnsons.com",
-                "2qyc9@deltajohnsons.com"
-            );
-
-            applicationManager.Navigation.OpenHomePage();
-            applicationManager.Auth.Login(user);
-
             applicationManager.Navigation.OpenBoardCreationPage();
             applicationManager.Board.Create(board);
-
             applicationManager.Navigation.OpenDashboard();
 
             Assert.That(applicationManager.Board.IsBoardWithTitlePresent(board.Title), Is.True);

@@ -19,10 +19,7 @@ namespace TestProject1
         private ApplicationManager()
         {
             driver = new FirefoxDriver();
-            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(3);
-            driver.Manage().Window.Size = new System.Drawing.Size(668, 784);
-
-            baseURL = "https://ideaflip.com/";
+            baseURL = Settings.BaseURL;
 
             navigation = new NavigationHelper(this, baseURL);
             auth = new LoginHelper(this);
@@ -60,12 +57,6 @@ namespace TestProject1
             get { return board; }
         }
 
-        public void ResetSession()
-        {
-            driver.Manage().Cookies.DeleteAllCookies();
-            driver.Navigate().GoToUrl(baseURL);
-        }
-
         ~ApplicationManager()
         {
             try
@@ -74,7 +65,6 @@ namespace TestProject1
             }
             catch (Exception)
             {
-                // ignore
             }
         }
     }

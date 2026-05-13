@@ -1,16 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using OpenQA.Selenium;
-using OpenQA.Selenium.Firefox;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using OpenQA.Selenium.Chrome;
-using OpenQA.Selenium.Remote;
-using OpenQA.Selenium.Support.UI;
-using OpenQA.Selenium.Interactions;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 
 namespace TestProject1
 {
@@ -22,7 +10,7 @@ namespace TestProject1
         public void SetupTest()
         {
             applicationManager = ApplicationManager.GetInstance();
-            applicationManager.ResetSession();
+            applicationManager.Navigation.OpenHomePage();
         }
     }
 }
